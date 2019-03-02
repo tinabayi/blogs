@@ -2,11 +2,8 @@ import os
 
 class Config:
 
-     '''
-    General configuration parent class
-    '''
-    QUOTE_API_BASE_URL ='http://quotes.stormconsultancy.co.uk/random.json'
-
+    
+   
     SECRET_KEY = "1234567890"
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://christine:bayizere@localhost/blog'
     UPLOADED_PHOTOS_DEST ='app/static/photos'
@@ -37,8 +34,4 @@ config_options = {
 
 
 
- class Config:
-    '''
-    General configuration parent class
-    '''
-    MOVIE_API_BASE_URL ='https://api.themoviedb.org/3/movie/{}?api_key={}'
+ 

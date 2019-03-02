@@ -65,14 +65,23 @@ class Comment(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     blog_id = db.Column(db.Integer,db.ForeignKey('blogs.id'))
-    description = db.Column(db.String(255))
+    comment = db.Column(db.String(255))
+
+    def save_comments(self):
+        db.session.add(self)
+        db.session.commit()
+
+
+    @classmethod
+    def clear_blogs(cls):
+        Blog.all_blogs.clear()
     
 
     @classmethod
     def get_comments(id):
-        comments=Comment.query.all()
+        all_comments=Comment.query.all()
 
-        return comments
+        return all_comments
 
 class Subscribe(db.Model):
     __tablename__ = 'subsribes'
@@ -85,3 +94,14 @@ class Subscribe(db.Model):
         return f'User {self.username}'
 
 
+class Quote:
+    '''
+    Quote class to define Quote Objects
+    '''
+
+    def __init__(self,author,id,quote,permalink):
+        self.author=author
+        self.id =id
+        self.quote=quote
+        self.permalink=permalink
+        

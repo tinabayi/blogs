@@ -1,22 +1,40 @@
+
 {% extends 'base.html'%}
 {% import "bootstrap/wtf.html" as wtf %}
-{% block styles%}
-    {{ super() }}
-    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
-{% endblock %}
 
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% if title %}
+        <title> {{ title }}</title>
+        {% else %}
+        <title> Welcome to the best blogs  website </title>
+        {% endif %}
+        
+
+<!-- Styles block -->
+
+        {% block styles%}
+        {{ super() }}
+        <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+        {% endblock %}
+        
+    </head>
 {% block content %}
 <div class="container">
 
         <div>
 
-            {{ wtf.quick_form(CommentForm) }}
+            {{ wtf.quick_form(Comment_form) }}
         </div>
     
         <div class="well-lg">
-            {% for word in comments %}
-            <p>{{word.comments}}</p>
-            {% endfor %}
+            {%for word in comments%}
+            <p>{{word.comment}}</p>
+            {%endfor%}
         </div>
 </div>
 {% endblock%}

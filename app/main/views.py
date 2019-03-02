@@ -14,7 +14,7 @@ from . import main
 from .. import db,photos
 from ..models import User,Blog,Comment,Subscribe
 from .forms import BlogForm,CommentForm
-# Blog= blog.Blog
+
 
 @main.route('/')
 def index():
@@ -24,6 +24,7 @@ def index():
     '''
 
     all_blogs = Blog.get_blogs()
+    
     title = 'Home - Welcome to The best pitches Website Online'
     return render_template('index.html', title = title ,all_blogs = all_blogs)
 
@@ -77,77 +78,73 @@ def display_blog():
    return render_template("new_blog.html",all_blogs=all_blogs)
 
 
-
-
-
-
 @main.route('/comment/new/<int:id>', methods = ['GET','POST'])
-def add_comment(id):
+def new_comment(id):
     form = CommentForm()
-    comments =Comment.get_comments()
-
+    # comments =Comment.get_comments()
 
     if form.validate_on_submit():
        
         comment = form.comment.data
-        db.session.add(comment)
-        db.session.commit()
-        return redirect(url_for('main.index',comment=comment))
+        new_comment = Comment(comment=comment)
+        new_comment.save_comments()
+        return redirect(url_for('main.index'))
+    
+    comments=Comment.query.filter_by(blog_id=id).all()
 
-        title = 'Welcome to The best pitches Website Online'
-        return render_template('comment.html',title = title, review_form=form, pitches=pitches,comments=comments)
-
-
-
-
+    title = 'Welcome to The best blogs Website Online'
+    return render_template('comment.html',comments=comments,Comment_form=form)
 
 
-@main.route('/user/<uname>/update/pic',methods= ['POST'])
-@login_required
-def update_pic(uname):
-    user = User.query.filter_by(username = uname).first()
-    if 'photo' in request.files:
-        filename = photos.save(request.files['photo'])
-        path = f'photos/{filename}'
-        user.profile_pic_path = path
-        db.session.commit()
-    return redirect(url_for('main.profile',uname=uname))
+@main.route('/comments')
+def dipslay_comments():
+  
+   all_comments = Comment. get_comments()
+   print(all_comments)
+   return render_template("index.html",all_comments=all_comments) 
 
 
 
 
 
+# @main.route('/user/<uname>/update/pic',methods= ['POST'])
+# @login_required
+# def update_pic(uname):
+#     user = User.query.filter_by(username = uname).first()
+#     if 'photo' in request.files:
+#         filename = photos.save(request.files['photo'])
+#         path = f'photos/{filename}'
+#         user.profile_pic_path = path
+#         db.session.commit()
+#         return redirect(url_for('main.profile',uname=uname)
+#         return render_template("profile/profile.html", user = user)
+
+# @main.route('/user/<uname>')
+# def profile(uname):
+#     user = User.query.filter_by(username = uname).first()
+
+#     if user is None:
+#         abort(404)
+
+#     return render_template("profile/profile.html", user = user)
 
 
 
+# @main.route('/user/<uname>/update',methods = ['GET','POST'])
+# @login_required
+# def update_profile(uname):
+#     user = User.query.filter_by(username = uname).first()
+#     if user is None:
+#         abort(404)
 
+#     form = UpdateProfile()
 
-@main.route('/user/<uname>')
-def profile(uname):
-    user = User.query.filter_by(username = uname).first()
+#     if form.validate_on_submit():
+#         user.bio = form.bio.data
 
-    if user is None:
-        abort(404)
+#         db.session.add(user)
+#         db.session.commit()
 
-    return render_template("profile/profile.html", user = user)
+#         return redirect(url_for('.profile',uname=user.username))
 
-
-
-@main.route('/user/<uname>/update',methods = ['GET','POST'])
-@login_required
-def update_profile(uname):
-    user = User.query.filter_by(username = uname).first()
-    if user is None:
-        abort(404)
-
-    form = UpdateProfile()
-
-    if form.validate_on_submit():
-        user.bio = form.bio.data
-
-        db.session.add(user)
-        db.session.commit()
-
-        return redirect(url_for('.profile',uname=user.username))
-
-    return render_template('profile/update.html',form =form) 
+#     return render_template('profile/update.html',form =form) 
