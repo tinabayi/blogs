@@ -2,7 +2,7 @@ from flask import render_template,request,redirect,url_for,abort
  
 from . import main
 from .forms import BlogForm,UpdateProfile
-from .. import db
+# from .. import db
 
 from .forms import BlogForm
 
@@ -26,6 +26,7 @@ def index():
     all_blogs = Blog.get_blogs()
     
     title = 'Home - Welcome to The best pitches Website Online'
+
     return render_template('index.html', title = title ,all_blogs = all_blogs)
 
 
@@ -50,7 +51,7 @@ def new_blog():
 def dipslay_blogs():
    all_blogs = Blog.blogs()
    print(all_blogs)
-   return render_template("blogs.html",all_blogs=all_blogs) 
+   return render_template("index.html",all_blogs=all_blogs) 
 
 @main.route('/blog/new', methods = ['GET','POST'])
 @login_required
@@ -68,14 +69,14 @@ def create_blog():
        return redirect(url_for('.index',blog = blog))
 
    # username = f'{user.username} pitch'
-   return render_template('new_blog.html', blog_form=form)
+   return render_template('blog.html', blog_form=form)
 
 
 @main.route('/blogs')
 def display_blog():
    all_blogs = Blog.get_blogs()
    print(all_blogs)
-   return render_template("new_blog.html",all_blogs=all_blogs)
+   return render_template("index.html",all_blogs=all_blogs)
 
 
 @main.route('/comment/new/<int:id>', methods = ['GET','POST'])
