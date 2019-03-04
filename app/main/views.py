@@ -13,9 +13,10 @@ from . import main
 
 from .. import db,photos
 from ..models import User,Blog,Comment,Subscribe
-from .forms import BlogForm,CommentForm
+from .forms import BlogForm,CommentForm,SubscriptionForm
 
 from ..request import get_quotes
+from ..email import mail_message
 
 
 
@@ -109,24 +110,38 @@ def dipslay_comments():
 
 
 
-@main.route('/subscription/new/ ', methods = ['GET','POST'])
+@main.route('/subscribe', methods = ['GET','POST'])
 def new_subscription():
-    form = SubscriptionForm
-    subscribe= form.subscribe.data
-    # comments =Comment.get_comments()
+    form = SubscriptionForm()
+    email= form.email.data
+    
 
     if form.validate_on_submit():
-        new_subscription = Subscribe(subscribe=subscribe)
-        new_subscription.save_subscription()
+        new_subscription = Subscribe(email=email)
+        db.session.add(new_subscription)
+        db.session.commit()
+        mail_message("Welcome to quote and blogs","email/welcome_user",new_subscription.email,new_subscription=new_subscription)
+       
+
         return redirect(url_for('main.index'))
-    
-   #  comments=Comment.query.filter_by(blog_id=id).all()
-
-   #  title = 'Welcome to The best blogs Website Online'
-    return render_template('subscription.html',subscribe=subscribe,subscription_form=form)
+   
+    return render_template('subscription.html',form=form)
 
 
 
+# @main.route('/subscribe',methods = ["GET","POST"])
+# def subscribe():
+#     form = SubscriptionForm
+#     if form.validate_on_submit():
+#         user = User(email = form.email.data)
+#         db.session.add(user)
+#         db.session.commit()
+
+        
+
+#         return redirect(url_for('main.index'))
+       
+#     return render_template('subscription.html',form= form)
 
 
 

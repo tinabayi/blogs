@@ -1,9 +1,14 @@
+{% import 'bootstrap/wtf.html' as wtf%}
 {% block content %}
- <div class="container">
 
+
+<div class="container">
+<div>
   
 
-    {{ wtf.quick_form(subscription_form) }}
+{{ wtf.quick_form(form) }}
    
 </div>
+</div>
+
 {% endblock%}
