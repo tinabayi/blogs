@@ -129,19 +129,6 @@ def new_subscription():
 
 
 
-# @main.route('/subscribe',methods = ["GET","POST"])
-# def subscribe():
-#     form = SubscriptionForm
-#     if form.validate_on_submit():
-#         user = User(email = form.email.data)
-#         db.session.add(user)
-#         db.session.commit()
-
-        
-
-#         return redirect(url_for('main.index'))
-       
-#     return render_template('subscription.html',form= form)
 
 
 
