@@ -30,8 +30,8 @@
     {% for blog in all_blogs %}
 
     <p>{{blog.description}}</p>
-    <button ><a href="/comment/new/{{blog.id}}">comment</a></button> 
-    <button ><a href="/comment/new/{{blog.id}}">view comment</a></button> 
+    <button  class="button"><a href="/comment/new/{{blog.id}}">comment</a></button> 
+    <button class="button"><a href="/comment/new/{{blog.id}}">view comment</a></button> 
     {% endfor %}
 
      <!-- quotes section  -->
