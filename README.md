@@ -1,9 +1,10 @@
 # PROJECT Name
 ~~~
-Pitches
+Blogs
 ~~~
 ## Author
 ~~~
 Bayizere christine
 ~~~
-## 
+### Project description
+ 
