@@ -63,7 +63,7 @@ class Blog(db.Model):
 class Comment(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer,primary_key = True)
-    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+   
     blog_id = db.Column(db.Integer,db.ForeignKey('blogs.id'))
     comment = db.Column(db.String(255))
 

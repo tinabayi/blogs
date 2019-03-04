@@ -86,19 +86,18 @@ def display_blog():
 @main.route('/comment/new/<int:id>', methods = ['GET','POST'])
 def new_comment(id):
     form = CommentForm()
+    comment = form.comment.data
     # comments =Comment.get_comments()
 
     if form.validate_on_submit():
-       
-        comment = form.comment.data
-        new_comment = Comment(comment=comment)
+        new_comment = Comment(blog_id =id ,comment=comment)
         new_comment.save_comments()
         return redirect(url_for('main.index'))
     
     comments=Comment.query.filter_by(blog_id=id).all()
 
     title = 'Welcome to The best blogs Website Online'
-    return render_template('comment.html',comments=comments,Comment_form=form)
+    return render_template('comment.html',comments=comments,comment_form=form)
 
 
 @main.route('/comments')
