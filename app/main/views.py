@@ -109,6 +109,22 @@ def dipslay_comments():
 
 
 
+@main.route('/subscription/new/ ', methods = ['GET','POST'])
+def new_subscription():
+    form = SubscriptionForm
+    subscribe= form.subscribe.data
+    # comments =Comment.get_comments()
+
+    if form.validate_on_submit():
+        new_subscription = Subscribe(subscribe=subscribe)
+        new_subscription.save_subscription()
+        return redirect(url_for('main.index'))
+    
+   #  comments=Comment.query.filter_by(blog_id=id).all()
+
+   #  title = 'Welcome to The best blogs Website Online'
+    return render_template('subscription.html',subscribe=subscribe,subscription_form=form)
+
 
 
 

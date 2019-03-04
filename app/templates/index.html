@@ -40,13 +40,8 @@
        
      <li>{{ quotes.author}}</li>
      <li>{{ quotes.quote}}</li>
-    
-
        
     </ul>
-
-    
-   
    
     <div class="well-lg">
         {%for word in all_comments%}
@@ -55,6 +50,9 @@
     </div>
 
 </div>
+
+<button class="button"><a href="{{url for('main.subscription.html')}}">Subscribe Here</a></button> 
+
     {% endblock%}
     
 </body>
