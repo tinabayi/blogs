@@ -2,7 +2,7 @@ import os
 
 class Config:
 
-    
+    QUOTE_BASE_URL ='http://quotes.stormconsultancy.co.uk/random.json'
    
     SECRET_KEY = "1234567890"
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://christine:bayizere@localhost/blog'

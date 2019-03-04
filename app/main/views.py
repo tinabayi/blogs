@@ -15,6 +15,9 @@ from .. import db,photos
 from ..models import User,Blog,Comment,Subscribe
 from .forms import BlogForm,CommentForm
 
+from ..request import get_quotes
+
+
 
 @main.route('/')
 def index():
@@ -22,12 +25,13 @@ def index():
     '''
     View root page function that returns the index page and its data
     '''
-
+    quotes = get_quotes()
+    
     all_blogs = Blog.get_blogs()
     
     title = 'Home - Welcome to The best pitches Website Online'
 
-    return render_template('index.html', title = title ,all_blogs = all_blogs)
+    return render_template('index.html', title = title ,all_blogs = all_blogs,quotes=quotes)
 
 
 @main.route('/blog/new', methods = ['GET','POST'])
@@ -103,6 +107,15 @@ def dipslay_comments():
    all_comments = Comment. get_comments()
    print(all_comments)
    return render_template("index.html",all_comments=all_comments) 
+
+
+
+
+
+
+
+
+
 
 
 

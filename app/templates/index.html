@@ -26,15 +26,22 @@
 
     <p>{{blog.description}}</p>
 
-    <!-- {% for comment in blog.comment %}
+    {% endfor %}
 
-        <p>{{comment.comment}}</p>
+     <!-- quotes section  -->
+     
+     <ul>
+       
+     <li>{{ some.author}}</li>
+     <li>{{ some.quote}}</li>
+     <li>{{ some.permalink}}</li>
 
-    {% endfor %} -->
+       
+    </ul>
 
     <button ><a href="/comment/new/{{blog.id}}">comment</a></button> 
     <button ><a href="/comments">view comment</a></button> 
-    {% endfor %}
+   
     <div class="well-lg">
         {%for word in all_comments%}
         <p>{{word.comment}}</p>
