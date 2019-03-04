@@ -24,19 +24,19 @@
         
     </head>
 {% block content %}
-<div class="container">
+ <div class="container">
 
-        <div>
+  <div>
 
-            {{ wtf.quick_form(Comment_form) }}
-        </div>
+    {{ wtf.quick_form(Comment_form) }}
+   </div>
     
-        <div class="well-lg">
-            {%for word in comments%}
-            <p>{{word.comment}}</p>
-            {%endfor%}
-        </div>
-</div>
+   <div class="well-lg">
+     {%for word in comments%}
+     <p>{{word.comment}}</p>
+     {%endfor%}
+    </div>
+ </div>
 {% endblock%}
 
 

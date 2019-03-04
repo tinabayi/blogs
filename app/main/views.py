@@ -106,7 +106,7 @@ def dipslay_comments():
   
    all_comments = Comment. get_comments()
    print(all_comments)
-   return render_template("index.html",all_comments=all_comments) 
+   return render_template("comment.html",all_comments=all_comments) 
 
 
 

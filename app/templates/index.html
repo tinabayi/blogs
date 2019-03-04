@@ -25,28 +25,31 @@
     {% for blog in all_blogs %}
 
     <p>{{blog.description}}</p>
-
+    <button ><a href="/comment/new/{{blog.id}}">comment</a></button> 
+    <button ><a href="/comments">view comment</a></button> 
     {% endfor %}
 
      <!-- quotes section  -->
      
      <ul>
        
-     <li>{{ some.author}}</li>
-     <li>{{ some.quote}}</li>
-     <li>{{ some.permalink}}</li>
+     <li>{{ quotes.author}}</li>
+     <li>{{ quotes.quote}}</li>
+    
 
        
     </ul>
 
-    <button ><a href="/comment/new/{{blog.id}}">comment</a></button> 
-    <button ><a href="/comments">view comment</a></button> 
+    
+   
    
     <div class="well-lg">
         {%for word in all_comments%}
         <p>{{word.comment}}</p>
         {%endfor%}
     </div>
+
+    
     {% endblock%}
        
 </body>
