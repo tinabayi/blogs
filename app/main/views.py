@@ -18,8 +18,6 @@ from .forms import BlogForm,CommentForm,SubscriptionForm
 from ..request import get_quotes
 from ..email import mail_message
 
-
-
 @main.route('/')
 def index():
 
@@ -30,7 +28,7 @@ def index():
     
     all_blogs = Blog.get_blogs()
     
-    title = 'Home - Welcome to The best pitches Website Online'
+    title = 'Home - Welcome to The best blogs Website Online'
 
     return render_template('index.html', title = title ,all_blogs = all_blogs,quotes=quotes)
 
@@ -66,14 +64,14 @@ def create_blog():
 
 
    if form.validate_on_submit():
-       # title = form.title.data
+       
        teaser = form.teaser.data
        blog = form.blog.data
        new_blog = Blog(user_id=current_user.id,teaser=teaser, blog=blog)
        new_blog.save_new()
        return redirect(url_for('.index',blog = blog))
 
-   # username = f'{user.username} pitch'
+   
    return render_template('blog.html', blog_form=form)
 
 
@@ -83,13 +81,25 @@ def display_blog():
    print(all_blogs)
    return render_template("index.html",all_blogs=all_blogs)
 
+@main.route('/delete/comment/<int:id>')
+@login_required
+def delete_comment(id):
+
+  form = CommentForm()
+  comment=Comment.query.filter_by(blog_id=id).all()
+
+  if comment is not None:
+
+   comment.delete_comment()
+   return redirect(url_for('main.index'))
+   return render_template('comment.html',comment=comment)   
+
 
 @main.route('/comment/new/<int:id>', methods = ['GET','POST'])
 def new_comment(id):
     form = CommentForm()
     comment = form.comment.data
-    # comments =Comment.get_comments()
-
+    
     if form.validate_on_submit():
         new_comment = Comment(blog_id =id ,comment=comment)
         new_comment.save_comments()
@@ -132,50 +142,17 @@ def new_subscription():
 
 
 
+@main.route('/user/<uname>/update/pic',methods= ['POST'])
+@login_required
+def update_pic(uname):
+    user = User.query.filter_by(username = uname).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic_path = path
+        db.session.commit()
+    return redirect(url_for('main.profile',uname=uname))
 
 
 
 
-
-
-# @main.route('/user/<uname>/update/pic',methods= ['POST'])
-# @login_required
-# def update_pic(uname):
-#     user = User.query.filter_by(username = uname).first()
-#     if 'photo' in request.files:
-#         filename = photos.save(request.files['photo'])
-#         path = f'photos/{filename}'
-#         user.profile_pic_path = path
-#         db.session.commit()
-#         return redirect(url_for('main.profile',uname=uname)
-#         return render_template("profile/profile.html", user = user)
-
-# @main.route('/user/<uname>')
-# def profile(uname):
-#     user = User.query.filter_by(username = uname).first()
-
-#     if user is None:
-#         abort(404)
-
-#     return render_template("profile/profile.html", user = user)
-
-
-
-# @main.route('/user/<uname>/update',methods = ['GET','POST'])
-# @login_required
-# def update_profile(uname):
-#     user = User.query.filter_by(username = uname).first()
-#     if user is None:
-#         abort(404)
-
-#     form = UpdateProfile()
-
-#     if form.validate_on_submit():
-#         user.bio = form.bio.data
-
-#         db.session.add(user)
-#         db.session.commit()
-
-#         return redirect(url_for('.profile',uname=user.username))
-
-#     return render_template('profile/update.html',form =form) 
