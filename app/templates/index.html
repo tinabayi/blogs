@@ -20,7 +20,12 @@
     </head>
   
  <body>
+
+ 
+
     {% block content %}
+    <div class="container">
+    <h1>Here is good blogs and Quotes</h1>
         
     {% for blog in all_blogs %}
 
@@ -49,8 +54,8 @@
         {%endfor%}
     </div>
 
-
+</div>
     {% endblock%}
-       
+    
 </body>
 </html>
