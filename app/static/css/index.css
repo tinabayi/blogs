@@ -1,5 +1,7 @@
 h1{
     color:red;
+    margin-bottom: 100px;
+    margin-top: 30px;
 }
 
 p{
@@ -7,6 +9,9 @@ p{
 }
 ul{
     font-family: Courier New, Courier, monospace;
+
+    border-style: dashed;
+    margin-top:60px; 
 }
 .button{
     background-color: #4CAF50;
@@ -19,4 +24,7 @@ ul{
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;  
+}
+body{
+    background-color:#A9E5BB;
 }
