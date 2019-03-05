@@ -84,7 +84,7 @@ class Comment(db.Model):
         return all_comments
 
     def delete_comment(self):
-        db.session.delete()
+        db.session.delete(self)
         db.session.commit()    
 
 class Subscribe(db.Model):

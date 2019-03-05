@@ -81,18 +81,20 @@ def display_blog():
    print(all_blogs)
    return render_template("index.html",all_blogs=all_blogs)
 
-@main.route('/delete/comment/<int:id>')
-@login_required
+@main.route('/comment/delete/<int:id>')
+
 def delete_comment(id):
 
-  form = CommentForm()
-  comment=Comment.query.filter_by(blog_id=id).all()
-
+  
+  comment=Comment.query.filter_by(id=id).all()
   if comment is not None:
+      comment.delete_comment()
 
-   comment.delete_comment()
-   return redirect(url_for('main.index'))
-   return render_template('comment.html',comment=comment)   
+  db.session.add(comment)
+  db.session.commit()    
+
+  
+  return redirect('.main.index')   
 
 
 @main.route('/comment/new/<int:id>', methods = ['GET','POST'])

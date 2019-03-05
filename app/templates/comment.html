@@ -34,8 +34,9 @@
    <div class="well-lg">
      {%for word in comments%}
      <p>{{word.comment}}</p>
+     <button><a href="/comment/delete/">Delete comment</a></button>
      {%endfor%}
-    </div>
+     
  </div>
 {% endblock%}
 
